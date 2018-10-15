@@ -9,7 +9,7 @@
     epub="$(printf "%s" "$img" | sed "s/\.jpg$/\.epub/")"
     mobi="$(printf "%s" "$img" | sed "s/\.jpg$/\.mobi/")"
     pdf="$(printf "%s" "$img" | sed "s/\.jpg$/\.pdf/")"
-    name="$(basename "$img" ".jpg")"
+    title="$(basename "$img" ".jpg")"
 
     if [ $loopnum -gt 0 ]; then
       printf ",\n "
@@ -18,7 +18,7 @@
     fi
     loopnum=$((loopnum + 1))
 
-    printf "{\n  \"name\": \"%s\",\n" "$name"
+    printf "{\n  \"title\": \"%s\",\n" "$title"
     if [ -f "$img" ]; then
       printf "  \"img\": \"%s\",\n" "$img"
     else

@@ -10,15 +10,73 @@
     <link href="styles.css" rel="stylesheet" type="text/css">
   </head>
   <body>
+    <h1>Little Free (eBook) Library</h1>
+    <section id="books"></section>
 
     <script>
-      var xmlhttp = new XMLHttpRequest();
+      var bookContainer = document.getElementById("books")
+
+      function addBook(book) {
+        // Container
+        let bookDiv = document.createElement('div')
+        bookDiv.classList.add('book')
+
+        // Img
+        let bookImg = document.createElement('img')
+        bookImg.src = book.img
+        bookImg.alt = book.title
+        bookDiv.appendChild(bookImg)
+
+        // Title
+        let bookTitle = document.createElement('h2')
+        let bookTitleText = document.createTextNode(book.title)
+        bookTitle.appendChild(bookTitleText)
+        bookDiv.appendChild(bookTitle)
+
+        // Mobi
+        if (book.mobi) {
+          let bookMobi = document.createElement('a')
+          bookMobi.href = book.mobi
+          bookMobi.classList.add('mobi')
+          let bookMobiText = document.createTextNode('mobi')
+          bookMobi.appendChild(bookMobiText)
+          bookDiv.appendChild(bookMobi)
+        }
+
+        // Epub
+        if (book.epub) {
+          let bookEpub = document.createElement('a')
+          bookEpub.href = book.epub
+          bookEpub.classList.add('epub')
+          let bookEpubText = document.createTextNode('epub')
+          bookEpub.appendChild(bookEpubText)
+          bookDiv.appendChild(bookEpub)
+        }
+
+        // PDF
+        if (book.pdf) {
+          let bookPDF = document.createElement('a')
+          bookPDF.href = book.pdf
+          bookPDF.classList.add('pdf')
+          let bookPDFText = document.createTextNode('pdf')
+          bookPDF.appendChild(bookPDFText)
+          bookDiv.appendChild(bookPDF)
+        }
+
+        // Add to page
+        bookContainer.appendChild(bookDiv)
+      }
+
+      var xmlhttp = new XMLHttpRequest()
       xmlhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-          var books = JSON.parse(this.responseText)
-          console.log(books)
+          let books = JSON.parse(this.responseText)
+          let i = books.length
+          while (i--) {
+            addBook(books[i])
+          }
         }
-      };
+      }
       xmlhttp.open("GET", "books.json", true)
       xmlhttp.send()
     </script>
