@@ -1,2 +1,2 @@
-rsync -rvhe ssh --progress --exclude=deploy --exclude=.git* . pi@littlefreelibrary.local:/var/www/html/
+rsync -rvhe ssh --progress --exclude=genlist --exclude=deploy --exclude=.git* . pi@littlefreelibrary.local:/var/www/html/
 
