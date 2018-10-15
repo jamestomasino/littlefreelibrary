@@ -1,3 +1,46 @@
 #!/bin/sh
 
-find books -name "*.epub" -print
+{
+  printf "["
+  loopnum=0
+
+  for img in books/*.jpg
+  do
+    epub="$(printf "%s" "$img" | sed "s/\.jpg$/\.epub/")"
+    mobi="$(printf "%s" "$img" | sed "s/\.jpg$/\.mobi/")"
+    pdf="$(printf "%s" "$img" | sed "s/\.jpg$/\.pdf/")"
+    name="$(basename "$img" ".jpg")"
+
+    if [ $loopnum -gt 0 ]; then
+      printf ",\n "
+    else
+      printf "\n "
+    fi
+    loopnum=$((loopnum + 1))
+
+    printf "{\n  \"name\": \"%s\",\n" "$name"
+    if [ -f "$img" ]; then
+      printf "  \"img\": \"%s\",\n" "$img"
+    else
+      printf "  \"img\": false,\n"
+    fi
+    if [ -f "$mobi" ]; then
+      printf "  \"mobi\": \"%s\",\n" "$mobi"
+    else
+      printf "  \"mobi\": false,\n"
+    fi
+    if [ -f "$epub" ]; then
+      printf "  \"epub\": \"%s\",\n" "$epub"
+    else
+      printf "  \"epub\": false,\n"
+    fi
+    if [ -f "$pdf" ]; then
+      printf "  \"pdf\": \"%s\"\n" "$pdf"
+    else
+      printf "  \"pdf\": false\n"
+    fi
+    printf " }"
+  done
+
+  printf "\n]\n"
+}  > "books.json"

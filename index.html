@@ -10,5 +10,17 @@
     <link href="styles.css" rel="stylesheet" type="text/css">
   </head>
   <body>
+
+    <script>
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+          var books = JSON.parse(this.responseText)
+          console.log(books)
+        }
+      };
+      xmlhttp.open("GET", "books.json", true)
+      xmlhttp.send()
+    </script>
   </body>
 </html>
