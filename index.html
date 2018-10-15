@@ -33,6 +33,9 @@
         bookTitle.appendChild(bookTitleText)
         bookDiv.appendChild(bookTitle)
 
+        let bookLinks = document.createElement('div')
+        bookLinks.classList.add('links')
+
         // Mobi
         if (book.mobi) {
           let bookMobi = document.createElement('a')
@@ -40,7 +43,7 @@
           bookMobi.classList.add('mobi')
           let bookMobiText = document.createTextNode('mobi')
           bookMobi.appendChild(bookMobiText)
-          bookDiv.appendChild(bookMobi)
+          bookLinks.appendChild(bookMobi)
         }
 
         // Epub
@@ -50,7 +53,7 @@
           bookEpub.classList.add('epub')
           let bookEpubText = document.createTextNode('epub')
           bookEpub.appendChild(bookEpubText)
-          bookDiv.appendChild(bookEpub)
+          bookLinks.appendChild(bookEpub)
         }
 
         // PDF
@@ -60,8 +63,10 @@
           bookPDF.classList.add('pdf')
           let bookPDFText = document.createTextNode('pdf')
           bookPDF.appendChild(bookPDFText)
-          bookDiv.appendChild(bookPDF)
+          bookLinks.appendChild(bookPDF)
         }
+
+        bookDiv.appendChild(bookLinks)
 
         // Add to page
         bookContainer.appendChild(bookDiv)
